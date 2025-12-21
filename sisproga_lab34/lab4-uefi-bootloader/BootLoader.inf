@@ -1,0 +1,30 @@
+[Defines]
+  INF_VERSION                    = 0x0001001A
+  BASE_NAME                      = BootLoader
+  FILE_GUID                      = 8A9C5D9B-1E4B-4C8D-A255-3B5E6B8A1A11
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+
+[Sources]
+  BootLoader.c
+  Trampoline.S
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DevicePathLib
+  UefiBootServicesTableLib
+  PrintLib
+
+[Protocols]
+  gEfiLoadedImageProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
