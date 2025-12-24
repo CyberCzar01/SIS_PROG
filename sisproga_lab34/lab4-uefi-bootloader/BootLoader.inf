@@ -9,6 +9,8 @@
 [Sources]
   BootLoader.c
   Trampoline.S
+  Mb2.h
+  Elf32.h
 
 [Packages]
   MdePkg/MdePkg.dec
@@ -17,12 +19,12 @@
 [LibraryClasses]
   UefiApplicationEntryPoint
   UefiLib
+  UefiBootServicesTableLib
   BaseLib
   BaseMemoryLib
   MemoryAllocationLib
-  DevicePathLib
-  UefiBootServicesTableLib
   PrintLib
+  DebugLib
 
 [Protocols]
   gEfiLoadedImageProtocolGuid

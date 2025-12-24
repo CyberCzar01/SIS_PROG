@@ -1,8 +1,8 @@
 #pragma once
 #include <Uefi.h>
 
-#define MB2_HEADER_MAGIC 0xE85250D6u
-#define MB2_BOOTLOADER_MAGIC 0x36d76289u
+#define MB2_HEADER_MAGIC        0xE85250D6u
+#define MB2_BOOTLOADER_MAGIC    0x36d76289u
 
 #pragma pack(push,1)
 typedef struct {
@@ -49,11 +49,6 @@ typedef struct {
   UINT8  blue_field_position;
   UINT8  blue_mask_size;
 } MB2_TAG_FRAMEBUFFER;
-
-typedef struct {
-  MB2_TAG tag;
-  UINT8 rsdp[1];
-} MB2_TAG_ACPI;
 #pragma pack(pop)
 
 static inline UINT32 MB2_ALIGN8(UINT32 x) { return (x + 7u) & ~7u; }

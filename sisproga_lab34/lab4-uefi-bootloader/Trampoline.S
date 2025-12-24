@@ -15,10 +15,7 @@ TrampolineStart:
 TrampolineEntry:
     cli
 
-    movw    $0x3F8, %dx
-    movb    $'A', %al
-    outb    %al, (%dx)
-
+    # Params comes in RCX (EFIAPI calling convention)
     movl    %ecx, %esi
 
     subq    $16, %rsp
@@ -31,22 +28,19 @@ TrampolineEntry:
     leaq    compat32(%rip), %rax
     pushq   $0x08
     pushq   %rax
-
-    movw    $0x3F8, %dx
-    movb    $'B', %al
-    outb    %al, (%dx)
-
     lretq
 
     .code32
 compat32:
     cli
 
+    # Disable long mode (LME=0)
     movl    $IA32_EFER, %ecx
     rdmsr
     andl    $~EFER_LME, %eax
     wrmsr
 
+    # Disable paging (CR0.PG=0)
     movl    %cr0, %eax
     andl    $0x7FFFFFFF, %eax
     movl    %eax, %cr0
@@ -72,8 +66,8 @@ prot32:
     .align 8
 gdt:
     .quad   0x0000000000000000
-    .quad   0x00CF9A000000FFFF
-    .quad   0x00CF92000000FFFF
+    .quad   0x00CF9A000000FFFF   # 0x08 code32
+    .quad   0x00CF92000000FFFF   # 0x10 data32
 gdt_end:
 
     .code64
